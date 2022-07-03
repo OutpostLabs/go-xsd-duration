@@ -7,9 +7,9 @@ import (
 )
 
 const (
-	P2Y6M5DT12H35M30S = 2*Year + 6*Month + 5*Day + 12*time.Hour + 35*time.Minute + 30*time.Second
+	P2Y6M5DT12H35M30S = 2*Yearish + 6*Monthish + 5*Day + 12*time.Hour + 35*time.Minute + 30*time.Second
 	P1DT2H            = Day + 2*time.Hour
-	P20M              = 20 * Month
+	P20M              = 20 * Monthish
 	PT20M             = 20 * time.Minute
 	P0Y               = time.Duration(0)
 	NegP60D           = -1 * (60 * Day)

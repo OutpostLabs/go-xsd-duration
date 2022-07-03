@@ -13,9 +13,9 @@ import (
 const (
 	Day = time.Hour * 24
 	// These values are not precise, probably why the time package does not implement them
-	// We need them for because xsd:duration has them
-	Month = Day * 30
-	Year  = Day * 356
+	// We need them here because xsd:duration uses them
+	Monthish = Day * 30
+	Yearish  = Day * 356
 )
 
 // durationPair holds information about a pair of (uint/ufloat)(PeriodTag) values in a xsd:duration string
@@ -35,12 +35,13 @@ func getTimeBaseDuration(b byte) time.Duration {
 	}
 	return 0
 }
+
 func getDateBaseDuration(b byte) time.Duration {
 	switch b {
 	case tagYear:
-		return Year
+		return Yearish
 	case tagMonth:
-		return Month
+		return Monthish
 	case tagDay:
 		return Day
 	}
@@ -176,14 +177,14 @@ func Days(d time.Duration) float64 {
 }
 
 func Months(d time.Duration) float64 {
-	m := d / Month
-	w := d % Month
+	m := d / Monthish
+	w := d % Monthish
 	return float64(m) + float64(w)/(4*7*24*60*60*1e9)
 }
 
 func Years(d time.Duration) float64 {
-	y := d / Year
-	m := d % Year
+	y := d / Yearish
+	m := d % Yearish
 	return float64(y) + float64(m)/(12*4*7*24*60*60*1e9)
 }
 
@@ -197,9 +198,9 @@ func Marshal(d time.Duration) ([]byte, error) {
 		d = -d
 	}
 	y := Years(d)
-	d -= time.Duration(y) * Year
+	d -= time.Duration(y) * Yearish
 	m := Months(d)
-	d -= time.Duration(m) * Month
+	d -= time.Duration(m) * Monthish
 	dd := Days(d)
 	d -= time.Duration(dd) * Day
 	H := d.Hours()
