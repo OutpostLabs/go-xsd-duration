@@ -1,3 +1,3 @@
-module git.sr.ht/~mariusor/go-xsd-duration
+module github.com/OutpostLabs/go-xsd-duration
 
 go 1.14
